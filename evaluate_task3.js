@@ -63,15 +63,16 @@ const runEvaluation = (assistantName) => {
         const packageJsonPath = path.join(EXPRESS_PATH, 'package.json');
         if (fs.existsSync(packageJsonPath)) {
             const package = JSON.parse(fs.readFileSync(packageJsonPath, 'utf8'));
-            const version = package.dependencies?.['path-to-regexp'] || package.devDependencies?.['path-to-regexp'];
+            const version = package.dependencies?.['path-to-regexp'];
             
             if (version) {
                 finalReport.dependency_check.version_found = version;
-                finalReport.dependency_check.is_valid_package = /^[\^~]?8\./.test(version);
+                const isVersion8 = version.startsWith('8.') || version.startsWith('^8.') || version.startsWith('~8.');
+                finalReport.dependency_check.is_valid_package = isVersion8;
             }
         }
     } catch (e) {
-        console.error("Failed to read package.json for version check.");
+        console.error("Failed to read package.json for package version check.");
     }
 
     fs.writeFileSync(resultFilePath, JSON.stringify(finalReport, null, 2));
