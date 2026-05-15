@@ -1,4 +1,4 @@
-assistant,Run,Tests,Passing,Failing,Pass_Rate,Package_Upgrade_Success,Version_Found
+Assistant,Run,Tests,Passing,Failing,Pass_Rate,Package_Upgraded,Version_Found
 Copilot,1,1166,1157,9,99.2%,YES,^8.4.2
 Copilot,2,1166,1154,12,99.0%,YES,8.4.2
 Copilot,3,1166,1159,7,99.4%,YES,^8.4.2
@@ -20,6 +20,6 @@ Cursor,18,1166,1159,7,99.4%,YES,^8.4.2
 Cursor,19,1166,1159,7,99.4%,YES,^8.4.2
 Cursor,20,1166,1159,7,99.4%,YES,^8.4.2
 Averages:
-Assistant, Avg_Tests_Passing, Package_Upgrade_Rate
-Copilot, 1153.50, 100.0%
-Cursor, 1158.20, 100.0%
+Assistant,Avg_Tests_Passing,Package_Upgrade_Rate
+Copilot, 1153.50,100.0%
+Cursor, 1158.20,100.0%

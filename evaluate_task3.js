@@ -2,7 +2,7 @@ const { execSync } = require('child_process');
 const fs = require('fs');
 const path = require('path');
 
-const EXPRESS_PATH = './express'; 
+const PROJECT_PATH = './express'; 
 
 const runEvaluation = (assistantName) => {
     const resultsDir = path.join(__dirname, 'results/task3');
@@ -14,10 +14,10 @@ const runEvaluation = (assistantName) => {
 
     let testSummary = {passing: 0, failing: 0};
 
-    // Run Tests
+    // Run tests
     try {
         console.log("Running tests...");
-        const testsOutput = execSync('npm test -- --no-bail --timeout 5000 --exit', {encoding: 'utf8', cwd: EXPRESS_PATH});
+        const testsOutput = execSync('npm test -- --no-bail --timeout 5000 --exit', {encoding: 'utf8', cwd: PROJECT_PATH});
         
         const failingTests = testsOutput.match(/(\d+) failing/);
         const passingTests = testsOutput.match(/(\d+) passing/);
@@ -60,7 +60,7 @@ const runEvaluation = (assistantName) => {
     };
 
     try {
-        const packageJsonPath = path.join(EXPRESS_PATH, 'package.json');
+        const packageJsonPath = path.join(PROJECT_PATH, 'package.json');
         if (fs.existsSync(packageJsonPath)) {
             const package = JSON.parse(fs.readFileSync(packageJsonPath, 'utf8'));
             const version = package.dependencies?.['path-to-regexp'];

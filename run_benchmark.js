@@ -19,6 +19,8 @@ const runBenchmark = () => {
     setupDirectories();
     runScript('reset_environment.js');
 
+    runScript('run_baseline.js');
+
     runScript('run_task_evaluations.js 1');
     runScript('run_task_evaluations.js 2');
     runScript('run_task_evaluations.js 3');

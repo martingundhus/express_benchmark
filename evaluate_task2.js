@@ -2,6 +2,7 @@ const { execSync } = require('child_process');
 const fs = require('fs');
 const path = require('path');
 
+// Read and fetch properties from sonar-project.properties
 const getSonarProperties = (propertyName) => {
     const propertiesPath = path.join(__dirname, 'express', 'sonar-project.properties');
     
@@ -26,7 +27,7 @@ const getSonarProperties = (propertyName) => {
     return null;
 };
 
-const EXPRESS_PATH = './express';
+const PROJECT_PATH = './express';
 const PROJECT_KEY = getSonarProperties('sonar.projectKey');
 const TOKEN = getSonarProperties('sonar.token');
 const SONAR_AUTH = `${TOKEN}:`;
@@ -40,10 +41,10 @@ const runEvaluation = (assistantName) => {
 
     let testSummary = {passing: 0, failing: 0};
 
-    // Run Tests
+    // Run tests
     try {
         console.log("Running tests...");
-        const testsOutput = execSync('npm test -- --no-bail --timeout 5000 --exit', {encoding: 'utf8', cwd: EXPRESS_PATH});
+        const testsOutput = execSync('npm test -- --no-bail --timeout 5000 --exit', {encoding: 'utf8', cwd: PROJECT_PATH});
         
         const failingTests = testsOutput.match(/(\d+) failing/);
         const passingTests = testsOutput.match(/(\d+) passing/);
@@ -74,12 +75,12 @@ const runEvaluation = (assistantName) => {
         }
     }
 
-    // Run SonarQube
+    // Run SonarQube scan
     try {
         console.log("Running SonarQube scan...");
-        execSync('npx sonarqube-scanner@4.2.0', {cwd: EXPRESS_PATH, stdio: 'inherit'});
+        execSync('npx sonarqube-scanner@4.2.0', {cwd: PROJECT_PATH, stdio: 'inherit'});
 
-        const reportPath = path.join(EXPRESS_PATH, '.sonar', 'report-task.txt');
+        const reportPath = path.join(PROJECT_PATH, '.sonar', 'report-task.txt');
         const reportContent = fs.readFileSync(reportPath, 'utf8');
         const ceTaskId = reportContent.match(/ceTaskId=(.*)/)[1];
         const serverUrl = reportContent.match(/serverUrl=(.*)/)[1];
@@ -123,7 +124,7 @@ const runEvaluation = (assistantName) => {
                 activeSmellRules[rule.val] = rule.count;
             });
         }
-        // Save Report
+        // Save report
         const finalReport = {
             assistant: assistantName,
             timestamp: new Date().toISOString(),

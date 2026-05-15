@@ -1,7 +1,7 @@
 const { execSync } = require('child_process');
 const path = require('path');
 
-const EXPRESS_PATH = path.join(__dirname, 'express');
+const PROJECT_PATH = path.join(__dirname, 'express');
 
 const taskNumber = process.argv[2];
 
@@ -17,10 +17,10 @@ const SUMMARIZE_SCRIPT = `summarize_task${taskNumber}.js`;
 const runAllEvaluations = () => {
     try {
         console.log("Fetching GitHub remotes...");
-        execSync(`git -C "${EXPRESS_PATH}" fetch --all --prune`, {stdio: 'inherit'});
+        execSync(`git -C "${PROJECT_PATH}" fetch --all --prune`, {stdio: 'inherit'});
 
         console.log("Storing branches...");
-        const branchList = execSync(`git -C "${EXPRESS_PATH}" branch -a`, {encoding: 'utf8'});
+        const branchList = execSync(`git -C "${PROJECT_PATH}" branch -a`, {encoding: 'utf8'});
         
         // Processing the branch list, filtering by BRANCH_REGEX, and removing duplicates
         const branches = branchList.split('\n')
@@ -46,7 +46,7 @@ const runAllEvaluations = () => {
             const assistantName = match[1]; 
 
             console.log(`Checking out branch: [${branchName}]...`);
-            execSync(`git -C "${EXPRESS_PATH}" checkout -f ${branchName}`, {stdio: 'inherit'});
+            execSync(`git -C "${PROJECT_PATH}" checkout -f ${branchName}`, {stdio: 'inherit'});
 
             console.log(`Reseting environment for branch...`);
             execSync(`node reset_environment.js`, {stdio: 'inherit'});

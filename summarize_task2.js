@@ -4,27 +4,40 @@ const path = require('path');
 const RESULTS_DIR = './results/task2';
 const OUTPUT_FILE = './task2_summary.csv';
 
-const BASELINE = {
-    assistant: '-', run:'Baseline', tests: 1166, smells: 448, ruleTypes: 27, debt: 2389, duplications: 1
-};
-
 const summarizeTask2 = () => {
     if (!fs.existsSync(RESULTS_DIR)) {
         return console.error("Results not found.");
     }
 
-    const files = fs.readdirSync(RESULTS_DIR);
+    const baselineFileName = fs.readdirSync(RESULTS_DIR).find(f => f.startsWith('Task2_Baseline') && f.endsWith('.json'));
+
+    if (!baselineFileName) {
+        return console.error("Could not find a baseline result file.");
+    }
+
+    const baselinePath = path.join(RESULTS_DIR, baselineFileName);
+    const baselineData = JSON.parse(fs.readFileSync(baselinePath, 'utf8'));
+    const baselineRules = baselineData.sonarqube.active_smell_rules || {};
+    const BASELINE = {
+        assistant: '-',
+        run: 'Baseline',
+        tests: (baselineData.tests?.passing || 0) + (baselineData.tests?.failing || 0),
+        smells: baselineData.sonarqube.total_smells || 0,
+        ruleTypes: Object.keys(baselineRules).length,
+        debt: baselineData.sonarqube.tech_debt || 0,
+        duplications: baselineData.sonarqube.duplications || 0
+    };
+
+    const files = fs.readdirSync(RESULTS_DIR)
+        .filter(f => f.endsWith('.json') && !f.includes('Baseline'));
     
     const headers = [
-        'assistant', 'Run', 'Tests', 'Smells', 'Smells_Delta', 
-        'Rule_Types', 'Types_Delta', 'Tech_Debt_Mins', 'Debt_Delta', 
-        'Duplications', 'Dup_Delta'
+        'Assistant','Run','Tests','Smells','Smells_Delta','Rule_Types','Types_Delta','Tech_Debt_Mins','Debt_Delta','Duplications','Dup_Delta'
     ];
     
     let csvRows = [headers.join(',')];
     let stats = {}; 
 
-    // Push baseline
     csvRows.push([
         BASELINE.assistant, BASELINE.run, BASELINE.tests, BASELINE.smells, '-', 
         BASELINE.ruleTypes, '-', BASELINE.debt, '-', BASELINE.duplications, '-'
@@ -78,7 +91,7 @@ const summarizeTask2 = () => {
 
     csvRows.push('\n');
     csvRows.push('Averages:');
-    csvRows.push('Assistant, Average_Smells_Delta, Average_Rule_Types_Delta, Average_Debt_Delta, Average_Dup_Delta');
+    csvRows.push('Assistant,Average_Smells_Delta,Average_Rule_Types_Delta,Average_Debt_Delta,Average_Dup_Delta');
 
     Object.keys(stats).forEach(assistantName => {
         const assistantData = stats[assistantName];
@@ -89,7 +102,7 @@ const summarizeTask2 = () => {
         const avgDebt = (assistantData.sumDebtDelta / assistantData.count).toFixed(2);
         const avgDups = (assistantData.sumDupsDelta / assistantData.count).toFixed(2);
 
-        csvRows.push(`${assistantName}, ${avgSmells}, ${avgTypes}, ${avgDebt}, ${avgDups}`);
+        csvRows.push(`${assistantName},${avgSmells},${avgTypes},${avgDebt},${avgDups}`);
     });
 
     fs.writeFileSync(OUTPUT_FILE, csvRows.join('\n'));

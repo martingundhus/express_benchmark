@@ -2,8 +2,8 @@ const { execSync } = require('child_process');
 const fs = require('fs');
 const path = require('path');
 
-const EXPRESS_PATH = './express'; 
-const SONAR_CONFIG_PATH = path.join(EXPRESS_PATH, 'sonar-project.properties');
+const PROJECT_PATH = './express'; 
+const SONAR_CONFIG_PATH = path.join(PROJECT_PATH, 'sonar-project.properties');
 
 const SONAR_CONFIG_CONTENT = `sonar.projectKey=hoho
 sonar.sources=lib
@@ -23,16 +23,16 @@ const resetEnvironment = () => {
     }
 
     try {
-        if (!fs.existsSync(EXPRESS_PATH)) {
-            throw new Error(`Directory ${EXPRESS_PATH} not found.`);
+        if (!fs.existsSync(PROJECT_PATH)) {
+            throw new Error(`Directory ${PROJECT_PATH} not found.`);
         }
 
-        execSync('git reset --hard HEAD', {cwd: EXPRESS_PATH});
-        execSync('git clean -fdx', {cwd: EXPRESS_PATH});
+        execSync('git reset --hard HEAD', {cwd: PROJECT_PATH});
+        execSync('git clean -fdx', {cwd: PROJECT_PATH});
 
-        if (fs.existsSync(path.join(EXPRESS_PATH, 'package.json'))) {
+        if (fs.existsSync(path.join(PROJECT_PATH, 'package.json'))) {
             console.log("Installing dependencies...");
-            execSync('npm install', {cwd: EXPRESS_PATH, stdio: 'ignore'});
+            execSync('npm install', {cwd: PROJECT_PATH, stdio: 'ignore'});
         }
 
         console.log("Overwriting sonar-project.properties...");

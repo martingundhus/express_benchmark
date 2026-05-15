@@ -1,4 +1,4 @@
-assistant,Run,Tests,Smells,Smells_Delta,Rule_Types,Types_Delta,Tech_Debt_Mins,Debt_Delta,Duplications,Dup_Delta
+Assistant,Run,Tests,Smells,Smells_Delta,Rule_Types,Types_Delta,Tech_Debt_Mins,Debt_Delta,Duplications,Dup_Delta
 -,Baseline,1166,448,-,27,-,2389,-,1,-
 Copilot,1,1166,451,3,27,0,2401,12,0,-1
 Copilot,2,1166,438,-10,27,0,2339,-50,0,-1
@@ -23,6 +23,6 @@ Cursor,20,1166,441,-7,26,-1,2357,-32,1,0
 
 
 Averages:
-Assistant, Average_Smells_Delta, Average_Rule_Types_Delta, Average_Debt_Delta, Average_Dup_Delta
-Copilot, -5.50, -1.10, -51.70, -0.40
-Cursor, -2.60, -0.60, -15.90, -0.60
+Assistant,Average_Smells_Delta,Average_Rule_Types_Delta,Average_Debt_Delta,Average_Dup_Delta
+Copilot,-5.50,-1.10,-51.70,-0.40
+Cursor,-2.60,-0.60,-15.90,-0.60

@@ -1,13 +1,13 @@
 const fs = require('fs');
 const path = require('path');
 
-const EXPRESS_PATH = './express'; 
+const PROJECT_PATH = './express'; 
 const files = {
-    layer: path.join(EXPRESS_PATH, 'lib/router/layer.js'),
-    route: path.join(EXPRESS_PATH, 'lib/router/route.js'),
-    index: path.join(EXPRESS_PATH, 'lib/router/index.js'),
-    response: path.join(EXPRESS_PATH, 'lib/response.js'),
-    view: path.join(EXPRESS_PATH, 'lib/view.js')
+    layer: path.join(PROJECT_PATH, 'lib/router/layer.js'),
+    route: path.join(PROJECT_PATH, 'lib/router/route.js'),
+    index: path.join(PROJECT_PATH, 'lib/router/index.js'),
+    response: path.join(PROJECT_PATH, 'lib/response.js'),
+    view: path.join(PROJECT_PATH, 'lib/view.js')
 };
 
 const injectBugs = () => {
@@ -76,4 +76,17 @@ const injectBugs = () => {
     }
 };
 
-injectBugs();
+const INJECTED_BUGS = [
+    "javascript:S4125", // Bug 1
+    "javascript:S930",  // Bug 2
+    "javascript:S3500", // Bug 3
+    "javascript:S6523", // Bug 4
+    "javascript:S7736", // Bug 5
+    "javascript:S1226"  // Bug 6
+];
+
+module.exports = {INJECTED_BUGS};
+
+if (require.main === module) {
+    injectBugs();
+}
