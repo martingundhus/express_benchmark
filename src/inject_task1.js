@@ -1,7 +1,7 @@
 const fs = require('fs');
 const path = require('path');
 
-const PROJECT_PATH = './express'; 
+const PROJECT_PATH = '../express'; 
 const files = {
     layer: path.join(PROJECT_PATH, 'lib/router/layer.js'),
     route: path.join(PROJECT_PATH, 'lib/router/route.js'),

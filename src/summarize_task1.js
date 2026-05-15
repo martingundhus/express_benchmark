@@ -2,8 +2,8 @@ const fs = require('fs');
 const path = require('path');
 const {INJECTED_BUGS} = require('./inject_task1.js');
 
-const RESULTS_DIR = './results/task1';
-const OUTPUT_FILE = './task1_summary.csv';
+const RESULTS_DIR = '../results/task1';
+const OUTPUT_FILE = '../reports/task1_summary.csv';
 const BASELINE_FILE = path.join(RESULTS_DIR, 'baseline.json')
 
 const summarizeResults = () => {

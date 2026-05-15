@@ -2,10 +2,10 @@ const { execSync } = require('child_process');
 const fs = require('fs');
 const path = require('path');
 
-const PROJECT_PATH = './express'; 
+const PROJECT_PATH = '../express'; 
 
 const runEvaluation = (assistantName) => {
-    const resultsDir = path.join(__dirname, 'results/task3');
+    const resultsDir = path.join(__dirname, '../results/task3');
 
     const timestamp = new Date().toISOString().replace(/[:.]/g, '-').slice(0, 19);
     const resultFilePath = path.join(resultsDir, `Task3_${assistantName}_${timestamp}.json`);

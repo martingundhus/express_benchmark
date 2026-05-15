@@ -29,17 +29,18 @@ const runBenchmark = () => {
 };
 
 const setupDirectories = () => {
-const folders = [
-        'results/task1', 
-        'results/task2', 
-        'results/task3',
+    const folders = [
+        'results/task1',
+        'results/task2',
+        'results/task3'
     ];
+    const rootDirectory = path.join(__dirname, '..');
 
     folders.forEach(dir => {
-        fs.mkdirSync(path.join(__dirname, dir), {recursive: true});
+        fs.mkdirSync(path.join(rootDirectory, dir), {recursive: true});
     });
-    
+
     console.log('Directories added.');
-}
+};
 
 runBenchmark();

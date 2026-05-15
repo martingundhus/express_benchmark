@@ -4,7 +4,7 @@ const path = require('path');
 
 // Read and fetch properties from sonar-project.properties
 const getSonarProperties = (propertyName) => {
-    const propertiesPath = path.join(__dirname, 'express', 'sonar-project.properties');
+    const propertiesPath = path.join(__dirname, '../express', 'sonar-project.properties');
     
     console.log("Fetching property from sonar-project.properties...");
     try {
@@ -27,19 +27,21 @@ const getSonarProperties = (propertyName) => {
     return null;
 };
 
-const PROJECT_PATH = './express';
+const PROJECT_PATH = '../express';
 const PROJECT_KEY = getSonarProperties('sonar.projectKey');
 const TOKEN = getSonarProperties('sonar.token');
 const SONAR_AUTH = `${TOKEN}:`;
 
 const runEvaluation = (assistantName) => {
-    const resultsDir = path.join(__dirname, 'results/task2');
+    const resultsDir = path.join(__dirname, '../results/task1');
     const timestamp = new Date().toISOString().replace(/[:.]/g, '-').slice(0, 19);
-    const resultFilePath = path.join(resultsDir, `Task2_${assistantName}_${timestamp}.json`);
+    const resultFilePath = path.join(resultsDir, `Task1_${assistantName}_${timestamp}.json`);
 
     console.log(`\nStarting evaluation for: [${assistantName}]`);
 
     let testSummary = {passing: 0, failing: 0};
+    let sonarBugs = 0;
+    let activeBugRules = [];
 
     // Run tests
     try {
@@ -99,53 +101,39 @@ const runEvaluation = (assistantName) => {
             execSync('node -e "setTimeout(()=>{}, 2000)"'); 
         }
 
-        console.log("Fetching metrics...");
+        console.log("Fetching bug types");
+        const bugsUrl = `${serverUrl}/api/issues/search?componentKeys=${PROJECT_KEY}&types=BUG&resolved=false`;
+        const bugsResponse = execSync(`curl -s -u "${SONAR_AUTH}" "${bugsUrl}"`, {encoding: 'utf8'});
+        const bugsData = JSON.parse(bugsResponse);
 
-        const metricsUrl = `${serverUrl}/api/measures/component?component=${PROJECT_KEY}&metricKeys=code_smells,sqale_index,duplicated_lines_density`;
+        activeBugRules = bugsData.issues.map(issue => issue.rule);
+
+        const metricsUrl = `${serverUrl}/api/measures/component?component=${PROJECT_KEY}&metricKeys=bugs`;
         const metricsResponse = execSync(`curl -s -u "${SONAR_AUTH}" "${metricsUrl}"`, {encoding: 'utf8'});
         const metricsData = JSON.parse(metricsResponse);
         
-        const sonarSmells = metricsData.component.measures.find(m => m.metric === 'code_smells')?.value;
-        const debtMinutes = metricsData.component.measures.find(m => m.metric === 'sqale_index')?.value;
-        const rawDensity = metricsData.component.measures.find(m => m.metric === 'duplicated_lines_density')?.value;
-
-        const duplications = parseFloat(rawDensity);
-    
-        console.log("🔍 Fetching Rule Distribution...");
-        const rulesUrl = `${serverUrl}/api/issues/search?componentKeys=${PROJECT_KEY}&types=CODE_SMELL&facets=rules&resolved=false&ps=1`;
-        const rulesResponse = execSync(`curl -s -u "${SONAR_AUTH}" "${rulesUrl}"`, {encoding: 'utf8'});
-        const rulesData = JSON.parse(rulesResponse);
-
-        const activeSmellRules = {};
-        const facet = rulesData.facets.find(f => f.property === 'rules');
-
-        if (facet) {
-            facet.values.forEach(rule => {
-                activeSmellRules[rule.val] = rule.count;
-            });
-        }
-        // Save report
-        const finalReport = {
-            assistant: assistantName,
-            timestamp: new Date().toISOString(),
-            tests: testSummary,
-            sonarqube: {
-                total_smells: parseInt(sonarSmells),
-                tech_debt: parseInt(debtMinutes),
-                duplications: duplications,
-                active_smell_rules: activeSmellRules
-            }
-        };
-
-        fs.writeFileSync(resultFilePath, JSON.stringify(finalReport, null, 2));
-        
-        console.log(`\nEvaluation Complete!`);
-        console.log(`Smells: ${sonarSmells} | Debt: ${debtMinutes}m | Duplications: ${duplications}`);
-        console.log(`Saved to: ${resultFilePath}`);
+        sonarBugs = metricsData.component.measures.find(m => m.metric === 'bugs')?.value;
 
     } catch (e) {
-        console.error("Evaluation Failed:", e.message);
+        console.error("SonarQube evaluation failed:", e.message);
     }
+
+    // Save report
+    const finalReport = {
+        assistant: assistantName,
+        timestamp: new Date().toISOString(),
+        tests: testSummary,
+        sonarqube: {
+            total_bugs: parseInt(sonarBugs),
+            active_bug_rules: activeBugRules
+        }
+    };
+
+    fs.writeFileSync(resultFilePath, JSON.stringify(finalReport, null, 2));
+    
+    console.log(`\nEvaluation Complete!`);
+    console.log(`Results: ${testSummary.passing} Passed, ${testSummary.failing} Failed | Sonar Bugs: ${sonarBugs}`);
+    console.log(`Saved to: ${resultFilePath}`);
 };
 
 const assistant = process.argv[2] || "Not Specified";

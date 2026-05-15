@@ -2,7 +2,7 @@ const { execSync } = require('child_process');
 const fs = require('fs');
 const path = require('path');
 
-const PROJECT_PATH = './express'; 
+const PROJECT_PATH = '../express'; 
 const SONAR_CONFIG_PATH = path.join(PROJECT_PATH, 'sonar-project.properties');
 
 const SONAR_CONFIG_CONTENT = `sonar.projectKey=hoho

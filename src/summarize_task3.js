@@ -1,8 +1,8 @@
 const fs = require('fs');
 const path = require('path');
 
-const RESULTS_DIR = './results/task3';
-const OUTPUT_FILE = './task3_summary.csv';
+const RESULTS_DIR = '../results/task3';
+const OUTPUT_FILE = '../reports/task3_summary.csv';
 
 const summarizeTask3 = () => {
     if (!fs.existsSync(RESULTS_DIR)) {

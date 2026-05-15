@@ -1,7 +1,7 @@
 const { execSync } = require('child_process');
 const path = require('path');
 
-const PROJECT_PATH = path.join(__dirname, 'express');
+const PROJECT_PATH = path.join(__dirname, '..', 'express');
 const BASELINE = 'Baseline';
 const EVALUATION_TASKS = [
     'evaluate_task1.js',
