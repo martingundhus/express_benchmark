@@ -1,4 +1,4 @@
-Assistant,Bug,Type,Correction_Frequency,Percentage
+Assistant,Bug,Bug_Type,Correction_Frequency,Percentage
 Copilot,javascript:S4125,Injected,9/10,90%
 Copilot,javascript:S930,Injected,10/10,100%
 Copilot,javascript:S3500,Injected,10/10,100%

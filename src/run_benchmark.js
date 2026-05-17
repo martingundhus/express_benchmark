@@ -16,6 +16,7 @@ const runScript = (scriptName) => {
 const runBenchmark = () => {
     console.log("Running benchmark...");
 
+    removeResults();
     setupDirectories();
     runScript('reset_environment.js');
 
@@ -26,6 +27,15 @@ const runBenchmark = () => {
     runScript('run_task_evaluations.js 3');
 
     console.log("\nAll tasks completed.");
+};
+
+const removeResults = () => {
+    const resultsPath = path.join(__dirname, '..', 'results');
+
+    if (fs.existsSync(resultsPath)) {
+        fs.rmSync(resultsPath, {recursive: true, force: true});
+        console.log('Results folder removed.');
+    }
 };
 
 const setupDirectories = () => {
