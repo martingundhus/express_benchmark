@@ -89,7 +89,7 @@ const summarizeTask2 = () => {
         ].join(','));
     });
 
-    csvRows.push('\n');
+    csvRows.push('');
     csvRows.push('Averages:');
     csvRows.push('Assistant,Average_Smells_Delta,Average_Rule_Types_Delta,Average_Debt_Delta,Average_Dup_Delta');
 

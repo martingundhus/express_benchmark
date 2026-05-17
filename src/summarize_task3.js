@@ -47,6 +47,7 @@ const summarizeTask3 = () => {
         ].join(','));
     });
 
+    csvRows.push('');
     csvRows.push('Averages:');
     csvRows.push('Assistant,Avg_Tests_Passing,Package_Upgrade_Rate');
 

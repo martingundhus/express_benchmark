@@ -19,6 +19,7 @@ Cursor,17,1166,1159,7,99.4%,YES,8.4.2
 Cursor,18,1166,1159,7,99.4%,YES,^8.4.2
 Cursor,19,1166,1159,7,99.4%,YES,^8.4.2
 Cursor,20,1166,1159,7,99.4%,YES,^8.4.2
+
 Averages:
 Assistant,Avg_Tests_Passing,Package_Upgrade_Rate
 Copilot, 1153.50,100.0%

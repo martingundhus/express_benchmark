@@ -21,7 +21,6 @@ Cursor,18,0,448,0,27,0,2383,-6,1,0
 Cursor,19,1166,447,-1,26,-1,2387,-2,0,-1
 Cursor,20,1166,441,-7,26,-1,2357,-32,1,0
 
-
 Averages:
 Assistant,Average_Smells_Delta,Average_Rule_Types_Delta,Average_Debt_Delta,Average_Dup_Delta
 Copilot,-5.50,-1.10,-51.70,-0.40
