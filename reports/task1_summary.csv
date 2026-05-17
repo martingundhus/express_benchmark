@@ -13,3 +13,27 @@ Cursor,javascript:S6523,Injected,10/10,100%
 Cursor,javascript:S7736,Injected,8/10,80%
 Cursor,javascript:S1226,Injected,10/10,100%
 Cursor,javascript:S2999,Pre-existing,0/10,0%
+
+
+Test Results From Each Run:
+Assistant,Run,Tests_Passed,Tests_Failed
+Copilot,1,1154,12
+Copilot,2,1090,77
+Copilot,3,1166,0
+Copilot,4,1166,0
+Copilot,5,1154,12
+Copilot,6,1154,12
+Copilot,7,1154,12
+Copilot,8,1135,32
+Copilot,9,1146,20
+Copilot,10,1106,61
+Cursor,1,1146,20
+Cursor,2,1146,20
+Cursor,3,1154,12
+Cursor,4,1166,0
+Cursor,5,1166,0
+Cursor,6,1166,0
+Cursor,7,1166,0
+Cursor,8,1166,0
+Cursor,9,1166,0
+Cursor,10,1154,12

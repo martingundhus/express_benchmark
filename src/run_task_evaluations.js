@@ -22,7 +22,7 @@ const runAllEvaluations = () => {
         console.log("Storing branches...");
         const branchList = execSync(`git -C "${PROJECT_PATH}" branch -a`, {encoding: 'utf8'});
         
-        // Processing the branch list, filtering by BRANCH_REGEX, and removing duplicates
+        // Processing the branch list, filtering by BRANCH_REGEX, removing duplicates, and sorting numerically
         const branches = branchList.split('\n')
             .map(b => {
                 let name = b.trim().replace('* ', '');
@@ -32,7 +32,12 @@ const runAllEvaluations = () => {
                 return name;
             })
             .filter(b => BRANCH_REGEX.test(b))
-            .filter((value, index, self) => self.indexOf(value) === index);
+            .filter((value, index, self) => self.indexOf(value) === index)
+            .sort((a, b) => {
+                const numA = parseInt(a.match(/Run(\d+)/)[1], 10);
+                const numB = parseInt(b.match(/Run(\d+)/)[1], 10);
+                return numA - numB;
+            });
 
         if (branches.length === 0) {
             console.log(`No matching branches found.`);

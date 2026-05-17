@@ -21,7 +21,8 @@ const summarizeTask2 = () => {
     const BASELINE = {
         assistant: '-',
         run: 'Baseline',
-        tests: (baselineData.tests?.passing || 0) + (baselineData.tests?.failing || 0),
+        tests_passed: baselineData.tests?.passing || 0,
+        tests_failed: baselineData.tests?.failing || 0,
         smells: baselineData.sonarqube.total_smells || 0,
         ruleTypes: Object.keys(baselineRules).length,
         debt: baselineData.sonarqube.tech_debt || 0,
@@ -32,14 +33,14 @@ const summarizeTask2 = () => {
         .filter(f => f.endsWith('.json') && !f.includes('Baseline'));
     
     const headers = [
-        'Assistant','Run','Tests','Smells','Smells_Delta','Rule_Types','Types_Delta','Tech_Debt_Mins','Debt_Delta','Duplications','Dup_Delta'
+        'Assistant','Run','Tests_Passed','Tests_Failed','Smells','Smells_Delta','Rule_Types','Types_Delta','Technical_Debt_Mins','Debt_Delta','Duplications','Duplications_Delta'
     ];
     
     let csvRows = [headers.join(',')];
     let stats = {}; 
 
     csvRows.push([
-        BASELINE.assistant, BASELINE.run, BASELINE.tests, BASELINE.smells, '-', 
+        BASELINE.assistant, BASELINE.run, BASELINE.tests_passed, BASELINE.tests_failed, BASELINE.smells, '-', 
         BASELINE.ruleTypes, '-', BASELINE.debt, '-', BASELINE.duplications, '-'
     ].join(','));
 
@@ -83,7 +84,7 @@ const summarizeTask2 = () => {
         stats[assistant].sumDupsDelta += deltas.dups;
 
         csvRows.push([
-            assistant, index + 1, (data.tests.passing + data.tests.failing),
+            assistant, index + 1, data.tests.passing, data.tests.failing,
             current.smells, deltas.smells, current.ruleTypes, deltas.types,
             current.debt, deltas.debt, current.duplications, deltas.dups
         ].join(','));

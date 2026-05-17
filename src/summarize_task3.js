@@ -12,7 +12,7 @@ const summarizeTask3 = () => {
     const files = fs.readdirSync(RESULTS_DIR);
     
     const headers = [
-        'Assistant','Run','Tests','Passing','Failing','Pass_Rate','Package_Upgraded','Version_Found'
+        'Assistant','Run','Tests_Passed','Tests_Failed','Pass_Rate','Package_Upgraded','Version_Found'
     ];
     
     let csvRows = [headers.join(',')];
@@ -38,7 +38,6 @@ const summarizeTask3 = () => {
         csvRows.push([
             assistant,
             index + 1,
-            total,
             data.test_results.passing,
             data.test_results.failing,
             passRate,
@@ -49,7 +48,7 @@ const summarizeTask3 = () => {
 
     csvRows.push('');
     csvRows.push('Averages:');
-    csvRows.push('Assistant,Avg_Tests_Passing,Package_Upgrade_Rate');
+    csvRows.push('Assistant,Avg_Tests_Passed,Package_Upgrade_Rate');
 
     Object.keys(stats).forEach(assistantName => {
         const assistantData = stats[assistantName];
