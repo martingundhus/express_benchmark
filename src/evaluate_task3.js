@@ -59,6 +59,7 @@ const runEvaluation = (assistantName) => {
         }
     };
 
+    // Check package.json for path-to-regexp version
     try {
         const packageJsonPath = path.join(PROJECT_PATH, 'package.json');
         if (fs.existsSync(packageJsonPath)) {
