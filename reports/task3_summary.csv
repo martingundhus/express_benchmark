@@ -9,18 +9,18 @@ Copilot,7,1146,20,98.3%,YES,^8.4.2
 Copilot,8,1159,7,99.4%,YES,^8.3.0
 Copilot,9,1139,27,97.7%,YES,^8.4.2
 Copilot,10,1154,12,99.0%,YES,8.4.2
-Cursor,11,1157,9,99.2%,YES,^8.4.2
-Cursor,12,1159,7,99.4%,YES,^8.4.2
-Cursor,13,1157,9,99.2%,YES,^8.4.2
-Cursor,14,1157,9,99.2%,YES,^8.4.2
-Cursor,15,1157,9,99.2%,YES,8.4.2
-Cursor,16,1159,7,99.4%,YES,8.4.2
-Cursor,17,1159,7,99.4%,YES,^8.4.2
-Cursor,18,1159,7,99.4%,YES,^8.4.2
-Cursor,19,1159,7,99.4%,YES,^8.4.2
-Cursor,20,1159,7,99.4%,YES,8.4.2
+Cursor,1,1157,9,99.2%,YES,^8.4.2
+Cursor,2,1159,7,99.4%,YES,^8.4.2
+Cursor,3,1157,9,99.2%,YES,^8.4.2
+Cursor,4,1157,9,99.2%,YES,^8.4.2
+Cursor,5,1157,9,99.2%,YES,8.4.2
+Cursor,6,1159,7,99.4%,YES,8.4.2
+Cursor,7,1159,7,99.4%,YES,^8.4.2
+Cursor,8,1159,7,99.4%,YES,^8.4.2
+Cursor,9,1159,7,99.4%,YES,^8.4.2
+Cursor,10,1159,7,99.4%,YES,8.4.2
 
 Averages:
 Assistant,Avg_Tests_Passed,Package_Upgrade_Rate
-Copilot, 1153.50,100.0%
-Cursor, 1158.20,100.0%
+Copilot,1153.50,100.0%
+Cursor,1158.20,100.0%

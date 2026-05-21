@@ -17,6 +17,7 @@ const summarizeTask3 = () => {
     
     let csvRows = [headers.join(',')];
     let stats = {};
+    const runCounters = {};
 
     files.forEach((file, index) => {
         const data = JSON.parse(fs.readFileSync(path.join(RESULTS_DIR, file), 'utf8'));
@@ -35,9 +36,14 @@ const summarizeTask3 = () => {
         stats[assistant].sumPass += data.test_results.passing;
         if (data.dependency_check.is_valid_package) stats[assistant].sumPackage++;
 
+        if (!runCounters[assistant]) {
+            runCounters[assistant] = 0;
+        }
+        runCounters[assistant]++;
+
         csvRows.push([
             assistant,
-            index + 1,
+            runCounters[assistant],
             data.test_results.passing,
             data.test_results.failing,
             passRate,
@@ -55,7 +61,7 @@ const summarizeTask3 = () => {
         const averagePass = (assistantData.sumPass / assistantData.count).toFixed(2);
         const packageRate = ((assistantData.sumPackage / assistantData.count) * 100).toFixed(1) + '%';
         
-        csvRows.push(`${assistantName}, ${averagePass},${packageRate}`);
+        csvRows.push(`${assistantName},${averagePass},${packageRate}`);
     });
 
     fs.writeFileSync(OUTPUT_FILE, csvRows.join('\n'));

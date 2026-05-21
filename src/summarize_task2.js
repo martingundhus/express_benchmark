@@ -38,6 +38,7 @@ const summarizeTask2 = () => {
     
     let csvRows = [headers.join(',')];
     let stats = {}; 
+    const runCounters = {};
 
     csvRows.push([
         BASELINE.assistant, BASELINE.run, BASELINE.tests_passed, BASELINE.tests_failed, BASELINE.smells, '-', 
@@ -83,8 +84,13 @@ const summarizeTask2 = () => {
         stats[assistant].sumDebtDelta += deltas.debt;
         stats[assistant].sumDupsDelta += deltas.dups;
 
+        if (!runCounters[assistant]) {
+            runCounters[assistant] = 0;
+        }
+        runCounters[assistant]++;
+
         csvRows.push([
-            assistant, index + 1, data.tests.passing, data.tests.failing,
+            assistant, runCounters[assistant], data.tests.passing, data.tests.failing,
             current.smells, deltas.smells, current.ruleTypes, deltas.types,
             current.debt, deltas.debt, current.duplications, deltas.dups
         ].join(','));
