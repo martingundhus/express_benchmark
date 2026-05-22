@@ -1,0 +1,14 @@
+{
+  "assistant": "Copilot",
+  "timestamp": "2026-05-17T15:44:13.587Z",
+  "tests": {
+    "passing": 1154,
+    "failing": 12
+  },
+  "sonarqube": {
+    "total_bugs": 1,
+    "active_bug_rules": [
+      "javascript:S2999"
+    ]
+  }
+}

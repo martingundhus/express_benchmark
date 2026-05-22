@@ -1,0 +1,14 @@
+{
+  "assistant": "Cursor",
+  "timestamp": "2026-05-17T15:36:15.658Z",
+  "tests": {
+    "passing": 1146,
+    "failing": 20
+  },
+  "sonarqube": {
+    "total_bugs": 1,
+    "active_bug_rules": [
+      "javascript:S2999"
+    ]
+  }
+}

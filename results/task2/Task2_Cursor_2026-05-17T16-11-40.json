@@ -1,0 +1,41 @@
+{
+  "assistant": "Cursor",
+  "timestamp": "2026-05-17T16:12:35.005Z",
+  "tests": {
+    "passing": 1166,
+    "failing": 0
+  },
+  "sonarqube": {
+    "total_smells": 450,
+    "tech_debt": 2402,
+    "duplications": 0,
+    "active_smell_rules": {
+      "javascript:S3504": 362,
+      "javascript:S7772": 10,
+      "javascript:S4138": 9,
+      "javascript:S7735": 8,
+      "javascript:S6666": 8,
+      "javascript:S6582": 7,
+      "javascript:S7780": 5,
+      "javascript:S1874": 4,
+      "javascript:S6557": 4,
+      "javascript:S7781": 4,
+      "javascript:S7740": 4,
+      "javascript:S1121": 4,
+      "javascript:S3776": 3,
+      "javascript:S7786": 3,
+      "javascript:S7765": 3,
+      "javascript:S2486": 2,
+      "javascript:S3358": 1,
+      "javascript:S2814": 1,
+      "javascript:S2392": 1,
+      "javascript:S7751": 1,
+      "javascript:S1135": 1,
+      "javascript:S3626": 1,
+      "javascript:S7773": 1,
+      "javascript:S7758": 1,
+      "javascript:S7755": 1,
+      "javascript:S6535": 1
+    }
+  }
+}
