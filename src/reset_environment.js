@@ -5,10 +5,10 @@ const path = require('path');
 const PROJECT_PATH = '../express'; 
 const SONAR_CONFIG_PATH = path.join(PROJECT_PATH, 'sonar-project.properties');
 
-const SONAR_CONFIG_CONTENT = `sonar.projectKey=hoho
+const SONAR_CONFIG_CONTENT = `sonar.projectKey=express-maintenance-benchmark
 sonar.sources=lib
 sonar.host.url=http://localhost:9000
-sonar.token=sqp_5d4771d4e9995f67897a18782c5838aa805fe260
+sonar.token=Add your SonarQube token here
 sonar.scm.disabled=true
 sonar.javascript.file.suffixes=.js`;
 
